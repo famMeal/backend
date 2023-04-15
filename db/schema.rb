@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.string "description"
     t.boolean "active", default: false, null: false
     t.decimal "price", precision: 8, scale: 2, null: false
-    t.bigint "restaurant_id"
+    t.bigint "restaurant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_meals_on_restaurant_id"
@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.decimal "tip_amount", precision: 8, scale: 2, null: false
     t.decimal "total", precision: 8, scale: 2, null: false
     t.decimal "subtotal", precision: 8, scale: 2, null: false
-    t.bigint "meal_id"
+    t.bigint "meal_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meal_id"], name: "index_orders_on_meal_id"
@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.datetime "pickup_start_time", null: false
     t.datetime "pickup_end_time", null: false
     t.boolean "byob_tupperware", default: false, null: false
-    t.bigint "restaurant_id"
+    t.bigint "restaurant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_restaurant_settings_on_restaurant_id"
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "owner_id"
+    t.bigint "owner_id", null: false
     t.index ["owner_id"], name: "index_restaurants_on_owner_id"
   end
 

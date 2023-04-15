@@ -6,7 +6,7 @@ class CreateMeal < ActiveRecord::Migration[7.0]
       t.boolean :active, null: false, default: false
       t.decimal :price, null: false, precision: 8, scale: 2
 
-      t.references :restaurant, index: true, foreign_key: { on_delete: :cascade }
+      t.references :restaurant, index: true, foreign_key: { on_delete: :cascade }, null: false
 
       t.timestamps
     end

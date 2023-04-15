@@ -7,7 +7,7 @@ class CreateRestaurantSetting < ActiveRecord::Migration[7.0]
       t.datetime :pickup_end_time, null: false
       t.boolean :byob_tupperware, null: false, default: false
 
-      t.references :restaurant, index: true, foreign_key: { on_delete: :cascade }
+      t.references :restaurant, index: true, foreign_key: { on_delete: :cascade }, null: false
 
       t.timestamps
     end
