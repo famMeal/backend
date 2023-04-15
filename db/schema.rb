@@ -34,9 +34,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.decimal "total", precision: 8, scale: 2, null: false
     t.decimal "subtotal", precision: 8, scale: 2, null: false
     t.bigint "meal_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meal_id"], name: "index_orders_on_meal_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "restaurant_settings", force: :cascade do |t|
@@ -61,8 +63,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "owner_id", null: false
-    t.index ["owner_id"], name: "index_restaurants_on_owner_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -70,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.string "last_name"
     t.string "email", null: false
     t.string "password", null: false
+    t.boolean "is_store_owner", default: false, null: false
     t.bigint "restaurant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -78,7 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
 
   add_foreign_key "meals", "restaurants", on_delete: :cascade
   add_foreign_key "orders", "meals", on_delete: :cascade
+  add_foreign_key "orders", "users", on_delete: :cascade
   add_foreign_key "restaurant_settings", "restaurants", on_delete: :cascade
-  add_foreign_key "restaurants", "users", column: "owner_id"
   add_foreign_key "users", "restaurants"
 end

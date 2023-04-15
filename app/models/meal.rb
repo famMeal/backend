@@ -4,5 +4,5 @@ class Meal < ApplicationRecord
     has_many :orders
 
     # Validations
-    validates :name, :restaurant_id, :active, :price, presence: true
+    validates :name, :restaurant_id, :price, presence: true
 end

@@ -10,6 +10,7 @@ class CreateOrder < ActiveRecord::Migration[7.0]
       t.decimal :subtotal, null: false, precision: 8, scale: 2
      
       t.references :meal, index: true, foreign_key: { on_delete: :cascade }, null: false
+      t.references :user, index: true, foreign_key: { on_delete: :cascade }, null: false
 
       t.timestamps
     end

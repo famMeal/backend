@@ -17,11 +17,10 @@ class CreateRestaurantsAndUsers < ActiveRecord::Migration[7.0]
       t.string :last_name
       t.string :email, null: false
       t.string :password, null: false
+      t.boolean :is_store_owner, null: false, default: false
       
       t.references :restaurant, index: true, foreign_key: true
       t.timestamps
     end
-
-    add_reference :restaurants, :owner, index: true, foreign_key: { to_table: :users }, null: false
   end
 end
