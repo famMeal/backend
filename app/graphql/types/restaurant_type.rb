@@ -10,5 +10,10 @@ module Types
     field :city, String, null: true
     field :province, String, null: true
     field :country, String, null: true
+
+    field :users, [Types::UserType], null: false
+    field :meals, [Types::MealType], null: false
+    field :orders, [Types::OrderType], null: false
+    field :restaurant_setting, Types::RestaurantSettingType, null: true
   end
 end

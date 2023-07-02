@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
     # Relations
     belongs_to :meal
+    has_one :restaurant, :through => :meal
     belongs_to :user
 
     # Validations

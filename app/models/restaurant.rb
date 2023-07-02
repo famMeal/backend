@@ -2,7 +2,7 @@ class Restaurant < ApplicationRecord
   # Relations
   has_many :meals
   has_many :orders, :through => :meals
-  has_many :restaurant_settings
+  has_one :restaurant_setting
   has_many :users
 
   # Validations
