@@ -4,6 +4,14 @@ class GraphqlController < ApplicationController
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
 
+  def schema
+     # Read the contents of your schema.graphql file
+     schema_file_path = Rails.root.join('graphql/schema/schema.graphql')
+     schema_definition = File.read(schema_file_path)
+ 
+     render json: schema_definition
+  end
+
   def execute
     variables = prepare_variables(params[:variables])
     query = params[:query]

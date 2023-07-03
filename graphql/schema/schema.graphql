@@ -1,0 +1,79 @@
+type Meal {
+  active: Boolean
+  description: String
+  id: ID!
+  name: String
+  orderCutoffTime: String
+  orderStartTime: String
+  pickupEndTime: String
+  pickupStartTime: String
+  price: Float
+  quantityAvailable: Int
+  restaurant: Restaurant
+}
+
+type Mutation {
+  """
+  An example field added by the generator
+  """
+  testField: String!
+}
+
+type Order {
+  id: ID!
+  meal: Meal
+  pickupEndTime: String
+  pickupStartTime: String
+  quantity: Int
+  restaurant: Restaurant
+  status: String
+  subtotal: Float
+  tipAmount: Float
+  total: Float
+  user: User
+}
+
+type Query {
+  meal(id: ID!): Meal
+  meals: [Meal!]!
+  order(id: ID!): Order
+  restaurant(id: ID!): Restaurant
+  restaurants: [Restaurant!]!
+  user(id: ID!): User
+}
+
+type Restaurant {
+  addressLine1: String
+  addressLine2: String
+  city: String
+  country: String
+  id: ID!
+  latitude: Float
+  longitude: Float
+  meals: [Meal!]!
+  name: String!
+  orders: [Order!]!
+  postalCode: String
+  province: String
+  restaurantSetting: RestaurantSetting
+  users: [User!]!
+}
+
+type RestaurantSetting {
+  byobTupperware: Boolean
+  id: ID!
+  orderCutoffTime: String
+  orderStartTime: String
+  pickupEndTime: String
+  pickupStartTime: String
+  quantityAvailable: Int
+}
+
+type User {
+  email: String!
+  firstName: String
+  id: ID!
+  isStoreOwner: Boolean
+  lastName: String
+  restaurant: Restaurant
+}
