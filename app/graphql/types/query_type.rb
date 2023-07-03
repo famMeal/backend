@@ -5,6 +5,7 @@ module Types
     include GraphQL::Types::Relay::HasNodesField
 
     field :restaurants, [Types::RestaurantType], null: false
+    field :meals, [Types::MealType], null: false
     field :restaurant, Types::RestaurantType, null: true do
       argument :id, ID, required: true
     end
@@ -28,6 +29,10 @@ module Types
 
     def user(id:)
       User.find_by(id: id)
+    end
+
+    def meals
+      Meal.all
     end
 
     def meal(id:)

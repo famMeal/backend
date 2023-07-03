@@ -7,6 +7,7 @@ module Types
     field :last_name, String, null: true
     field :email, String, null: false
     field :is_store_owner, Boolean, null: true
+    
     field :restaurant, Types::RestaurantType, null: true
   end
 end
