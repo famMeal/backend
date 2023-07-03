@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
   end
 
   create_table "restaurant_settings", force: :cascade do |t|
+    t.integer "quantity_available", null: false
     t.datetime "order_start_time", null: false
     t.datetime "order_cutoff_time", null: false
     t.datetime "pickup_start_time", null: false
@@ -61,6 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.string "province"
     t.string "postal_code"
     t.string "country"
+    t.decimal "latitude"
+    t.decimal "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

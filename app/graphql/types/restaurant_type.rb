@@ -10,6 +10,8 @@ module Types
     field :city, String, null: true
     field :province, String, null: true
     field :country, String, null: true
+    field :latitude, Float, null: true
+    field :longitude, Float, null: true
 
     field :users, [Types::UserType], null: false
     field :meals, [Types::MealType], null: false

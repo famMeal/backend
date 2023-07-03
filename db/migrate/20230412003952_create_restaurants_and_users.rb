@@ -8,6 +8,8 @@ class CreateRestaurantsAndUsers < ActiveRecord::Migration[7.0]
       t.string :province
       t.string :postal_code
       t.string :country
+      t.decimal :latitude
+      t.decimal :longitude
 
       t.timestamps
     end
