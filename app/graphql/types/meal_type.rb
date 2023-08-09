@@ -3,15 +3,15 @@
 module Types
   class MealType < Types::BaseObject
     field :id, ID, null: false
-    field :name, String, null: true
+    field :name, String, null: false
     field :description, String, null: true
-    field :active, Boolean, null: true
-    field :price, Float, null: true
-    field :order_start_time, String, null: true
-    field :order_cutoff_time, String, null: true
-    field :pickup_start_time, String, null: true
-    field :pickup_end_time, String, null: true
-    field :quantity_available, Integer, null: true
+    field :active, Boolean, null: false
+    field :price, Float, null: false
+    field :order_start_time, String, null: false
+    field :order_cutoff_time, String, null: false
+    field :pickup_start_time, String, null: false
+    field :pickup_end_time, String, null: false
+    field :quantity_available, Integer, null: false
     
     field :restaurant, Types::RestaurantType, null: true
 
