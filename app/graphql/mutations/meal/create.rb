@@ -11,7 +11,6 @@ module Mutations::Meal
     field :meal, Types::MealType, null: true
 
     def resolve(**args)
-      
       meal = Meal.create!(
         name: args[:name],
         description: args[:description],
