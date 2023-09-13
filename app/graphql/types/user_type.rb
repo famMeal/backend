@@ -9,5 +9,6 @@ module Types
     field :is_store_owner, Boolean, null: true
     
     field :restaurant, Types::RestaurantType, null: true
+    field :orders, [Types::OrderType], null: false
   end
 end
