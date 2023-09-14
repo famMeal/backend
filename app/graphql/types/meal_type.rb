@@ -6,7 +6,7 @@ module Types
     field :name, String, null: false
     field :description, String, null: true
     field :active, Boolean, null: false
-    field :price, Float, null: false
+    field :price, String, null: false
     field :order_start_time, String, null: false
     field :order_cutoff_time, String, null: false
     field :pickup_start_time, String, null: false
@@ -33,6 +33,10 @@ module Types
 
     def quantity_available
       object.restaurant_setting.quantity_available
+    end
+
+    def price
+      Money.new(object.price * 100, 'CAD').format
     end
   end
 end
