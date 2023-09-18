@@ -221,7 +221,7 @@ chicken_tikka = Meal.create!(
 puts 'Creating order 📄'
 
 Order.create!(
-  status: 'processing',
+  status: 'preparing',
   pickup_start_time: DateTime.new(2000, 01, 01, 18, 00, 0),
   pickup_end_time: DateTime.new(2000, 01, 01, 18, 15, 0),
   total: 20.0,

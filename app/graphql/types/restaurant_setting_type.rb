@@ -8,6 +8,5 @@ module Types
     field :pickup_start_time, String, null: true
     field :pickup_end_time, String, null: true
     field :quantity_available, Integer, null: true
-    field :byob_tupperware, Boolean, null: true
   end
 end
