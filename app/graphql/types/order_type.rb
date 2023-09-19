@@ -8,7 +8,9 @@ module Types
     field :pickup_start_time, String, null: true
     field :pickup_end_time, String, null: true
     field :tip_amount, String, null: true
+    field :tip_percentage, Integer, null: true
     field :total, String, null: true
+    field :taxes, String, null: true
     field :subtotal, String, null: true
 
     field :meal, Types::MealType, null: true
@@ -21,6 +23,10 @@ module Types
   
     def total
       Money.new(object.total * 100, 'CAD').format
+    end
+
+    def taxes
+      Money.new(object.subtotal * 13, 'CAD').format
     end
   
     def subtotal

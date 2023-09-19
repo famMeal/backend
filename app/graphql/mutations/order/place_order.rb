@@ -3,7 +3,6 @@ module Mutations::Order
   class PlaceOrder < Mutations::BaseMutation
     argument :pickup_start_time, String, required: false
     argument :pickup_end_time, String, required: false
-    argument :tip_amount, Float, required: false
     argument :quantity, Integer, required: false
     argument :order_id, ID, required: true
 
@@ -11,6 +10,7 @@ module Mutations::Order
     field :order, Types::OrderType, null: true
 
     def resolve(**args)
+      @args = args
       @order = Order.find(args[:order_id])
 
       order.update!(
@@ -18,9 +18,8 @@ module Mutations::Order
         pickup_end_time: args[:pickup_end_time] || order.pickup_end_time,
         quantity: args[:quantity] || order.quantity,
         status: "preparing",
-        tip_amount: args[:tip_amount] || order.tip_amount,
-        subtotal: calculate_subtotal(args[:quantity]),
-        total: (subtotal * 1.13) + (args[:tip_amount] || order.tip_amount)
+        subtotal: subtotal,
+        total: subtotal * 1.13
       )
 
       { order: order, errors: [] }
@@ -28,10 +27,10 @@ module Mutations::Order
       { errors: [e.message] }
     end
 
-    def calculate_subtotal(new_quantity)
-      @subtotal ||= new_quantity ? order.meal.price * new_quantity : order.subtotal
+    def subtotal
+      @subtotal ||= args[:quantity] ? order.meal.price * args[:quantity] : order.subtotal
     end
 
-    attr_reader :order, :subtotal
+    attr_reader :order, :args
   end
 end

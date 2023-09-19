@@ -7,5 +7,6 @@ module Types
     field :place_order, mutation: Mutations::Order::PlaceOrder
     field :update_order_status, mutation: Mutations::Order::UpdateOrderStatus
     field :update_all_orders_status, mutation: Mutations::Order::UpdateAllOrdersStatus
+    field :add_tip, mutation: Mutations::Order::AddTip
   end
 end

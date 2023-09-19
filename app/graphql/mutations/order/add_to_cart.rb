@@ -17,7 +17,6 @@ module Mutations::Order
         quantity: args[:quantity],
         meal_id: args[:meal_id],
         user_id: args[:user_id],
-        status: "cart",
         tip_amount: 0,
         subtotal: calculate_subtotal(args[:quantity], args[:meal_id]),
         total: subtotal * 1.13
