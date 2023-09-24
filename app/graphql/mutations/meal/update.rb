@@ -13,7 +13,6 @@ module Mutations::Meal
     def resolve(**args)
       meal = Meal.find(args[:meal_id])
       attributes = args.slice(:name, :description, :active, :price)
-      
       meal.update!(attributes)
 
       { meal: meal, errors: [] }
