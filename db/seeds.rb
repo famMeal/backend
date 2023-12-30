@@ -113,7 +113,8 @@ kristine_owner = User.create!(
   email: "kristinelmcbride@gmail.com",
   password: "password",
   restaurant: restaurant_keg,
-  is_store_owner: true
+  is_store_owner: true,
+  confirmed_at: DateTime.now
 )
 
 User.create!(
@@ -121,7 +122,8 @@ User.create!(
   last_name: "Kamali",
   email: "shahynkamali@gmail.com",
   password: "password",
-  restaurant: restaurant_keg
+  restaurant: restaurant_keg,
+  confirmed_at: DateTime.now
 )
 
 kristine_owner_osteria = User.create!(
@@ -130,7 +132,8 @@ kristine_owner_osteria = User.create!(
   email: "kristinelmcbride+osteria@gmail.com",
   password: "password",
   restaurant: restaurant_osteria,
-  is_store_owner: true
+  is_store_owner: true,
+  confirmed_at: DateTime.now
 )
 
 User.create!(
@@ -138,7 +141,8 @@ User.create!(
   last_name: "Kamali",
   email: "shahynkamali+osteria@gmail.com",
   password: "password",
-  restaurant: restaurant_osteria
+  restaurant: restaurant_osteria,
+  confirmed_at: DateTime.now
 )
 
 kristine_owner_pizzaiolo = User.create!(
@@ -147,7 +151,8 @@ kristine_owner_pizzaiolo = User.create!(
   email: "kristinelmcbride+pizzaiolo@gmail.com",
   password: "password",
   restaurant: restaurant_pizzaiolo,
-  is_store_owner: true
+  is_store_owner: true,
+  confirmed_at: DateTime.now
 )
 
 kristine_owner_bangkok = User.create!(
@@ -156,7 +161,8 @@ kristine_owner_bangkok = User.create!(
   email: "kristinelmcbride+bangkok@gmail.com",
   password: "password",
   restaurant: restaurant_bangkok,
-  is_store_owner: true
+  is_store_owner: true,
+  confirmed_at: DateTime.now
 )
 
 kristine_owner_masala = User.create!(
@@ -165,7 +171,8 @@ kristine_owner_masala = User.create!(
   email: "kristinelmcbride+masala@gmail.com",
   password: "password",
   restaurant: restaurant_masala,
-  is_store_owner: true
+  is_store_owner: true,
+  confirmed_at: DateTime.now
 )
 
 
@@ -173,7 +180,8 @@ monty_the_guest = User.create!(
   first_name: "Monty",
   last_name: "McBride",
   email: "kristinelmcbride+monty@gmail.com",
-  password: "password"
+  password: "password",
+  confirmed_at: DateTime.now
 )
 
 puts 'Creating meals 🥘'
