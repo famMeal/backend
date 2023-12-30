@@ -3,7 +3,7 @@ puts 'Destroying current DB 🔥'
 User.destroy_all
 Restaurant.destroy_all
 
-puts 'Creating new restaurants 🍽'
+puts 'Creating restaurants 🍽'
 
 restaurant_keg = Restaurant.create!(
   name: 'The Keg',
