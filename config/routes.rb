@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   end
   post "/graphql", to: "graphql#execute"
   get "/graphql", to: "graphql#schema"
+  devise_for :users, skip: :sessions
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

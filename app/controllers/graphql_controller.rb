@@ -1,9 +1,11 @@
 class GraphqlController < ApplicationController
-  protect_from_forgery prepend: true
+  include Devise::Controllers::Helpers
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
-  # protect_from_forgery with: :null_session
+  protect_from_forgery unless: -> { request.format.json? } 
+  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!, unless: -> { params[:operationName] == "Login" }
 
   def schema
      # Read the contents of your schema.graphql file
@@ -17,10 +19,7 @@ class GraphqlController < ApplicationController
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
-    # context = {
-    #   # Query context goes here, for example:
-    #   current_user: current_user,
-    # }
+
     result = BackendSchema.execute(query, variables: variables, context: gql_devise_context(User), operation_name: operation_name)
     render json: result
   rescue StandardError => e
