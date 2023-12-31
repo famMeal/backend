@@ -18,6 +18,7 @@ module Types
     field :order, Types::OrderType, null: true, authenticate: false do
       argument :id, ID, required: true
     end
+    field :current_user, Types::UserType, null: true, authenticate: false
 
     def restaurants
       Restaurant.all
@@ -29,6 +30,10 @@ module Types
 
     def user(id:)
       User.find_by(id: id)
+    end
+
+    def current_user
+      context[:current_resource]
     end
 
     def meals

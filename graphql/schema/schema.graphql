@@ -224,6 +224,7 @@ type PlaceOrderPayload {
 }
 
 type Query {
+  currentUser: User
   meal(id: ID!): Meal
   meals: [Meal!]!
   order(id: ID!): Order

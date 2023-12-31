@@ -1827,6 +1827,20 @@
           "possibleTypes": null,
           "fields": [
             {
+              "name": "currentUser",
+              "description": null,
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null,
+              "args": [
+
+              ]
+            },
+            {
               "name": "meal",
               "description": null,
               "type": {
