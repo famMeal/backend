@@ -5,7 +5,7 @@ class GraphqlController < ApplicationController
   # but you'll have to authenticate your user separately
   protect_from_forgery unless: -> { request.format.json? } 
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_user!, unless: -> { ["Login", "userLoginMutation"].include?(params[:operationName]) }
+  before_action :authenticate_user!, unless: -> { ["Login", "userLoginMutation", "userRegisterMutation"].include?(params[:operationName]) }
 
   def schema
      # Read the contents of your schema.graphql file
