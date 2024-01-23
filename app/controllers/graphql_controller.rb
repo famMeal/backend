@@ -19,7 +19,7 @@ class GraphqlController < ApplicationController
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
-
+    
     result = BackendSchema.execute(query, variables: variables, context: gql_devise_context(User), operation_name: operation_name)
     render json: result
   rescue StandardError => e
