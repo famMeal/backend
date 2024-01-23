@@ -8,5 +8,6 @@ module Types
     field :update_order, mutation: Mutations::Order::UpdateOrder, authenticate: false
     field :update_all_orders_status, mutation: Mutations::Order::UpdateAllOrdersStatus, authenticate: false
     field :add_tip, mutation: Mutations::Order::AddTip, authenticate: false
+    field :update_restaurant_setting, mutation: Mutations::RestaurantSetting::UpdateSetting, authenticate: false
   end
 end
