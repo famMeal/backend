@@ -12,10 +12,7 @@ module Mutations::RestaurantSetting
     field :restaurant_setting, Types::RestaurantSettingType, null: true
 
     def resolve(**args)
-      p "HEEHEE"
-      p args
       setting = RestaurantSetting.find_by(restaurant_id: args[:restaurant_id])
-      p setting
       attributes = args.slice(:pickup_start_time, :pickup_end_time, :order_start_time, :order_cutoff_time, :quantity_available)
       setting.update!(attributes)
 
