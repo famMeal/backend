@@ -12,6 +12,8 @@ module Mutations::Auth
     def resolve(email:, confirmation_token:)
       resource = User.find_by(email: email, confirmation_token: confirmation_token)
       
+      return unless resource
+      
       resource.confirmed_at = DateTime.now
       resource.save!
 
