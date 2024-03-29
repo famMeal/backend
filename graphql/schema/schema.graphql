@@ -190,6 +190,7 @@ type Mutation {
 }
 
 type Order {
+  createdAt: String
   id: ID!
   meal: Meal
   pickupEndTime: String

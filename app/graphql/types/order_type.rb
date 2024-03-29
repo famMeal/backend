@@ -12,6 +12,7 @@ module Types
     field :total, String, null: true
     field :taxes, String, null: true
     field :subtotal, String, null: true
+    field :created_at, String, null: true
 
     field :meal, Types::MealType, null: true
     field :restaurant, Types::RestaurantType, null: true
