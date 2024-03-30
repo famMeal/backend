@@ -13,37 +13,33 @@ module Mutations::Auth
     field :authenticatable, Types::UserType, null: true
 
     def resolve(confirm_url: nil, **attrs)
+      return raise_user_error_list("Passwords do not match", errors: []) if attrs[:password] != attrs[:password_confirmation]
+      
       ActiveRecord::Base.transaction do
         resource = build_resource(attrs.except(:restaurant_name).merge(provider: provider, confirmation_token: rand(100000...999999).to_s))
-        raise_user_error(I18n.t('graphql_devise.resource_build_failed')) if resource.blank?
-        
+  
+        resource.save!
+
+        yield resource if block_given?
+
         Restaurant.create!(name: attrs[:restaurant_name]) if attrs[:restaurant_name].present?
-
-          if resource.save
-            yield resource if block_given?
-
-            unless resource.confirmed?
-              resource.send_confirmation_instructions(
-                confirmation_code:  resource.confirmation_token,
-                template_path: ['graphql_devise/mailer']
-              )
-            end
-
-            response_payload = { authenticatable: resource }
-
-            response_payload[:credentials] = generate_auth_headers(resource) if resource.active_for_authentication?
-
-            response_payload
-          else
-            resource.try(:clean_up_passwords)
-            raise_user_error_list(
-              I18n.t('graphql_devise.registration_failed'),
-              resource: resource
-            )
-          end
+        
+        unless resource.confirmed?
+          resource.send_confirmation_instructions(
+            confirmation_code:  resource.confirmation_token,
+            template_path: ['graphql_devise/mailer']
+          )
         end
-    end
 
+        response_payload = { authenticatable: resource }
+
+        response_payload[:credentials] = generate_auth_headers(resource) if resource.active_for_authentication?
+
+        response_payload 
+      end
+    rescue => e
+      return raise_user_error_list(e.message, errors: [])
+    end
     private
 
     def build_resource(attrs)
