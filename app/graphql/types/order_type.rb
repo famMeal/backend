@@ -33,5 +33,13 @@ module Types
     def subtotal
       Money.new(object.subtotal * 100, 'CAD').format
     end
+    
+    def status
+      if object.status == "completed-client" || object.status == "completed-restaurant"
+        "completed"
+      else
+        object.status
+      end
+    end
   end
 end
