@@ -7,6 +7,7 @@ module Types
     field :quantity, Integer, null: true
     field :pickup_start_time, String, null: true
     field :pickup_end_time, String, null: true
+    field :order_placed_at, String, null: true
     field :tip_amount, String, null: true
     field :tip_percentage, Integer, null: true
     field :total, String, null: true
@@ -35,7 +36,7 @@ module Types
     end
     
     def status
-      if object.status == "completed-client" || object.status == "completed-restaurant"
+      if object.status == "completed_client" || object.status == "completed_restaurant"
         "completed"
       else
         object.status

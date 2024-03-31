@@ -9,6 +9,15 @@ module Types
     field :is_store_owner, Boolean, null: true
     
     field :restaurant, Types::RestaurantType, null: true
-    field :orders, [Types::OrderType], null: false
+    field :orders, [Types::OrderType], null: false do
+      argument :filters, Types::FilterObjects::OrdersFilterObject, required: false
+      complexity 10
+    end
+
+    def orders(filters: nil)
+      return filters.apply(object) if filters.present?
+
+      object.orders
+    end
   end
 end

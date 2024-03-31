@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.string "status", default: "cart", null: false
     t.datetime "pickup_start_time", null: false
     t.datetime "pickup_end_time", null: false
+    t.datetime "order_placed_at"
     t.integer "quantity", default: 1, null: false
     t.integer "tip_percentage"
     t.decimal "tip_amount", precision: 8, scale: 2, default: "0.0", null: false

@@ -4,6 +4,7 @@ class CreateOrder < ActiveRecord::Migration[7.0]
       t.string :status, null: false, default: "cart"
       t.datetime :pickup_start_time, null: false
       t.datetime :pickup_end_time, null: false
+      t.datetime :order_placed_at
       t.integer :quantity, null: false, default: 1
       t.integer :tip_percentage
       t.decimal :tip_amount, null: false, precision: 8, scale: 2, default: 0.00

@@ -40,9 +40,9 @@ module Mutations::Order
       previous_status = order.status
       
       if status == "completed" && previous_status == "picked_up"
-        order.status = "completed-restaurant"
+        order.status = "completed_restaurant"
       elsif status == "completed"
-        order.status = "completed-client"
+        order.status = "completed_client"
       else
         order.status = status
       end

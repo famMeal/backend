@@ -229,9 +229,21 @@ chicken_tikka = Meal.create!(
 puts 'Creating order 📄'
 
 Order.create!(
+  status: 'cart',
+  pickup_start_time: DateTime.new(2000, 01, 01, 18, 00, 0),
+  pickup_end_time: DateTime.new(2000, 01, 01, 18, 15, 0),
+  total: 20.0,
+  subtotal: 15.0,
+  tip_amount: 0,
+  meal: chicken_alfredo,
+  user: monty_the_guest
+)
+
+Order.create!(
   status: 'preparing',
   pickup_start_time: DateTime.new(2000, 01, 01, 18, 00, 0),
   pickup_end_time: DateTime.new(2000, 01, 01, 18, 15, 0),
+  order_placed_at: DateTime.now,
   total: 20.0,
   subtotal: 15.0,
   tip_amount: 3.05,
@@ -243,6 +255,7 @@ Order.create!(
   status: 'picked_up',
   pickup_start_time: DateTime.new(2000, 01, 01, 18, 00, 0),
   pickup_end_time: DateTime.new(2000, 01, 01, 18, 15, 0),
+  order_placed_at: DateTime.now,
   total: 20.0,
   subtotal: 15.0,
   tip_amount: 3.05,
