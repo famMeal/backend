@@ -6,6 +6,7 @@ module Types
     field :add_to_cart, mutation: Mutations::Order::AddToCart, authenticate: false
     field :place_order, mutation: Mutations::Order::PlaceOrder, authenticate: false
     field :update_order, mutation: Mutations::Order::UpdateOrder, authenticate: false
+    field :delete_order, mutation: Mutations::Order::DeleteOrder, authenticate: false
     field :update_all_orders_status, mutation: Mutations::Order::UpdateAllOrdersStatus, authenticate: false
     field :add_tip, mutation: Mutations::Order::AddTip, authenticate: false
     field :update_restaurant_setting, mutation: Mutations::RestaurantSetting::UpdateSetting, authenticate: false
