@@ -15,7 +15,16 @@ module Types
 
     field :users, [Types::UserType], null: false
     field :meals, [Types::MealType], null: false
-    field :orders, [Types::OrderType], null: false
+    field :orders, [Types::OrderType], null: false do
+      argument :filters, Types::FilterObjects::OrdersFilterObject, required: false
+      complexity 10
+    end
     field :restaurant_setting, Types::RestaurantSettingType, null: true
+
+    def orders(filters: nil)
+      return filters.apply(object) if filters.present?
+
+      object.orders
+    end
   end
 end

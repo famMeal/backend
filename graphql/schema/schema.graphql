@@ -294,7 +294,7 @@ input OrdersFilterObject {
   """
   Filter by status
   """
-  status: OrderStatusField
+  statusList: [OrderStatusField!]
 }
 
 """
@@ -343,7 +343,7 @@ type Restaurant {
   longitude: Float
   meals: [Meal!]!
   name: String!
-  orders: [Order!]!
+  orders(filters: OrdersFilterObject): [Order!]!
   postalCode: String
   province: String
   restaurantSetting: RestaurantSetting

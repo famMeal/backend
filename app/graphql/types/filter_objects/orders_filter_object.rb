@@ -1,16 +1,24 @@
 module Types
   module FilterObjects
     class OrdersFilterObject < GraphQL::Schema::InputObject
-      argument :status, Types::FilterObjects::OrderStatusField, required: false, description: "Filter by status"
+      argument :status_list, [Types::FilterObjects::OrderStatusField], required: false, description: "Filter by status"
       argument :date_range, Types::FilterObjects::DateRangeField, required: false, description: "Returns todays or not todays orders"
 
       def apply(object)
         scope = object.orders
-    
-        if status == :completed
-          scope = object.orders.where(status: ["completed_client", "completed_restaurant"])
-        elsif status 
-          scope = object.orders.where(status: status.to_s)
+  
+        unless status_list.empty?
+          status_array = []
+
+          status_list.each do |status|
+            if status == :completed
+              status_array << "completed_client"
+              status_array << "completed_restaurant"
+            elsif status 
+              status_array << status.to_s
+            end
+          end
+          scope = object.orders.where(status: status_array)
         end
 
         today = DateTime.now.beginning_of_day..DateTime.now.end_of_day

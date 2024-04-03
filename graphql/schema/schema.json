@@ -2082,12 +2082,20 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "status",
+              "name": "statusList",
               "description": "Filter by status",
               "type": {
-                "kind": "ENUM",
-                "name": "OrderStatusField",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "OrderStatusField",
+                    "ofType": null
+                  }
+                }
               },
               "defaultValue": null,
               "isDeprecated": false,
@@ -2623,7 +2631,18 @@
               "isDeprecated": false,
               "deprecationReason": null,
               "args": [
-
+                {
+                  "name": "filters",
+                  "description": null,
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "OrdersFilterObject",
+                    "ofType": null
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                }
               ]
             },
             {
