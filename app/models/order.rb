@@ -1,6 +1,4 @@
 class Order < ApplicationRecord
-  include AASM
-
   # Relations
   belongs_to :meal
   has_one :restaurant, :through => :meal
@@ -13,25 +11,4 @@ class Order < ApplicationRecord
   scope :by_restaurant_and_status, ->(restaurant_id, status) {
     joins(:meal).where(meals: { restaurant_id: restaurant_id }, status: status)
   }
-
-  aasm column: 'status' do
-    state :cart, initial: true
-    state :payment_failed
-    state :preparing
-    state :ready
-    state :picked_up
-    state :completed_client
-    state :completed_restaurant
-    state :cancelled
-
-    event :place_order do
-      transitions from: :cart, to: :preparing, after: :set_order_placed_at
-    end
-  end
-
-  private
-
-    def set_order_placed_at
-      self.order_placed_at = DateTime.now
-    end
 end
