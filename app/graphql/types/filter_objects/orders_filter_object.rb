@@ -7,7 +7,7 @@ module Types
       def apply(object)
         scope = object.orders
   
-        unless status_list.empty?
+        unless status_list.nil? || status_list.empty?
           status_array = []
 
           status_list.each do |status|
