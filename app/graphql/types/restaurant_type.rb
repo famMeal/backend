@@ -22,7 +22,7 @@ module Types
     field :restaurant_setting, Types::RestaurantSettingType, null: true
 
     def orders(filters: nil)
-      return filters.apply(object.orders) if filters.present?
+      return filters.apply(object) if filters.present?
 
       object.orders
     end
