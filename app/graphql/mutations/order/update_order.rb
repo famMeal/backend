@@ -2,7 +2,7 @@
 module Mutations::Order
   class UpdateOrder < Mutations::BaseMutation
     argument :order_id, ID, required: true
-    argument :status, String, required: false
+    argument :status, Types::FilterObjects::OrderStatusField, required: false
     argument :quantity, Integer, required: false
     argument :pickup_start_time, String, required: false
     argument :pickup_end_time, String, required: false
