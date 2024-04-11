@@ -9,8 +9,8 @@ module Mutations::Meal
     def resolve(**args)
       meal = Meal.find(args[:meal_id])
       
-      meal.destroy!
-
+      meal.orders.empty? ? meal.destroy! : meal.update!(archived: true)
+  
       { meal: meal, errors: [] }
     rescue StandardError => e
       { errors: [e.message] }

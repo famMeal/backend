@@ -4,6 +4,7 @@ class CreateMeal < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.string :description
       t.boolean :active, null: false, default: false
+      t.boolean :archived, null: false, default: false
       t.decimal :price, null: false, precision: 8, scale: 2, default: 0.00
 
       t.references :restaurant, index: true, foreign_key: { on_delete: :cascade }, null: false

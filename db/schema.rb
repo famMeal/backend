@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.string "name", null: false
     t.string "description"
     t.boolean "active", default: false, null: false
+    t.boolean "archived", default: false, null: false
     t.decimal "price", precision: 8, scale: 2, default: "0.0", null: false
     t.bigint "restaurant_id", null: false
     t.datetime "created_at", null: false
