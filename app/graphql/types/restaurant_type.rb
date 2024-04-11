@@ -26,5 +26,9 @@ module Types
 
       object.orders
     end
+
+    def meals
+      object.meals.not_archived
+    end
   end
 end

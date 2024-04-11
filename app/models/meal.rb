@@ -6,4 +6,6 @@ class Meal < ApplicationRecord
 
     # Validations
     validates :name, :restaurant_id, :price, presence: true
+
+    scope :not_archived, -> { where(archived: false) }
 end
