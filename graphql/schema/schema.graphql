@@ -398,6 +398,8 @@ input UpdateOrderInput {
   pickupStartTime: String
   quantity: Int
   status: OrderStatusField
+  tipAmount: Float
+  tipPercentage: Int
 }
 
 """
