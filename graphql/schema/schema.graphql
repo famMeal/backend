@@ -279,8 +279,6 @@ input PlaceOrderInput {
   pickupEndTime: String
   pickupStartTime: String
   quantity: Int
-  tipAmount: Float
-  tipPercentage: Int
 }
 
 """

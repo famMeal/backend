@@ -13,32 +13,54 @@ module Mutations::Order
     field :order, Types::OrderType, null: true
 
     def resolve(**args)
+      @args = args
       @order = Order.find(args[:order_id])
-      @subtotal = Meal.find(order.meal_id).price * args[:quantity]
-
-      update_status(args[:status]) if args[:status]
+      @quantity = args[:quantity] || order.quantity
       
-      order.pickup_start_time = args[:pickup_start_time] if args[:pickup_start_time]
-      order.pickup_end_time = args[:pickup_end_time] if args[:pickup_end_time]
+      ActiveRecord::Base.transaction do
+        update_status(args[:status]) if args[:status]
+        update_pickup_times
+        calculate_totals
 
-      total_without_tip = subtotal * 1.13
-      tip_amount = args[:tip_amount] || total_without_tip * (args[:tip_percentage].to_d / 100.00)
- 
-      if args[:quantity]
-        order.assign_attributes(
-          quantity: args[:quantity],
-          subtotal: subtotal,
-          total: total_without_tip + tip_amount,
-          tip_amount: tip_amount,
-          tip_percentage: args[:tip_percentage] || nil
-        )  
+        order.save!
       end
-
-      order.save!
 
       { order: order, errors: [] }
     rescue StandardError => e
       { errors: [e.message] }
+    end
+
+    def subtotal
+      @subtotal ||= Meal.find(order.meal_id).price * quantity
+    end
+
+    def calculate_totals
+      order.subtotal = subtotal
+      order.quantity = quantity
+      total_without_tip = subtotal * 1.13
+
+      if args[:tip_amount] || args[:tip_percentage]
+        add_total_with_tip(total_without_tip)
+      else
+        order.total = total_without_tip
+      end
+    end
+
+    def add_total_with_tip(total_without_tip)
+      if args[:tip_amount]
+        order.assign_attributes(
+          total: total_without_tip + args[:tip_amount],
+          tip_amount: args[:tip_amount],
+          tip_percentage: nil
+        ) 
+      else 
+        tip_amount = total_without_tip * (args[:tip_percentage].to_d / 100.00)
+        order.assign_attributes(
+          total: total_without_tip + tip_amount,
+          tip_amount: tip_amount,
+          tip_percentage: args[:tip_percentage]
+        ) 
+      end
     end
 
     def update_status(status)
@@ -53,6 +75,11 @@ module Mutations::Order
       end
     end
 
-    attr_reader :subtotal, :order
+    def update_pickup_times
+      order.pickup_start_time = args[:pickup_start_time] if args[:pickup_start_time]
+      order.pickup_end_time = args[:pickup_end_time] if args[:pickup_end_time]
+    end
+
+    attr_reader :order, :args, :quantity
   end
 end
