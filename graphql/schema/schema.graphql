@@ -121,6 +121,7 @@ type DeletePayload {
 
 type Meal {
   active: Boolean!
+  archived: Boolean!
   description: String
   id: ID!
   name: String!

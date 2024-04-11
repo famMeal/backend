@@ -6,6 +6,7 @@ module Types
     field :name, String, null: false
     field :description, String, null: true
     field :active, Boolean, null: false
+    field :archived, Boolean, null: false
     field :price, String, null: false
     field :order_start_time, String, null: false
     field :order_cutoff_time, String, null: false
