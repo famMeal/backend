@@ -39,9 +39,9 @@ module Mutations::Order
     def update_status(status)
       previous_status = order.status
       
-      if status == "completed" && previous_status == "picked_up"
+      if status == :completed && previous_status == "picked_up"
         order.status = "completed_restaurant"
-      elsif status == "completed"
+      elsif status == :completed
         order.status = "completed_client"
       else
         order.status = status

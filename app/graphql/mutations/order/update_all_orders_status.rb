@@ -12,9 +12,9 @@ module Mutations::Order
       orders = Order.by_restaurant_and_status(args[:restaurant_id], args[:from_status])
       previous_status = args[:from_status]
       
-      new_status = if args[:to_status] == "completed" && previous_status == "picked_up"
+      new_status = if args[:to_status] == :completed && previous_status == "picked_up"
         "completed_restaurant"
-      elsif args[:to_status] == "completed"
+      elsif args[:to_status] == :completed
         "completed_client"
       else
         args[:to_status]
