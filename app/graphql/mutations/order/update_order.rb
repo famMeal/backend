@@ -39,7 +39,7 @@ module Mutations::Order
       order.quantity = quantity
       total_without_tip = subtotal * 1.13
 
-      if args[:tip_amount] || args[:tip_percentage]
+      if args[:tip_amount] || args[:tip_percentage] || args[:quantity]
         add_total_with_tip(total_without_tip)
       else
         order.total = total_without_tip
@@ -54,11 +54,12 @@ module Mutations::Order
           tip_percentage: nil
         ) 
       else 
-        tip_amount = total_without_tip * (args[:tip_percentage].to_d / 100.00)
+        tip_percentage = args[:tip_percentage] || order.tip_percentage
+        tip_amount = total_without_tip * (tip_percentage.to_d / 100.00)
         order.assign_attributes(
           total: total_without_tip + tip_amount,
           tip_amount: tip_amount,
-          tip_percentage: args[:tip_percentage]
+          tip_percentage: tip_percentage
         ) 
       end
     end
