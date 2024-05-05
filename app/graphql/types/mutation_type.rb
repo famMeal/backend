@@ -9,6 +9,7 @@ module Types
     field :delete_order, mutation: Mutations::Order::DeleteOrder, authenticate: false
     field :update_all_orders_status, mutation: Mutations::Order::UpdateAllOrdersStatus, authenticate: false
     field :update_restaurant_setting, mutation: Mutations::RestaurantSetting::UpdateSetting, authenticate: false
+    field :create_or_update_stripe_account, mutation: Mutations::Restaurant::CreateOrUpdateStripeAccount, authenticate: false
     field :sign_up, mutation: Mutations::Auth::SignUp, authenticate: false
     field :verify_account, mutation: Mutations::Auth::VerifyAccount, authenticate: false
   end
