@@ -5,7 +5,9 @@ module Mutations::Restaurant
 
     def resolve
       raise StandardError.new("You are not authorized to perform this action") unless context[:current_resource].is_store_owner 
-
+      
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+      
       stripe_account_id = context[:current_resource].restaurant.stripe_account_id
       
       account = if stripe_account_id.present?
@@ -25,9 +27,9 @@ module Mutations::Restaurant
         type: 'account_onboarding',
       })
 
-      { redirect_link: redirect_link, errors: [] }
+      { redirect_link: redirect_link.url, errors: [] }
     rescue StandardError => e
-      { errors: [e.message] }
+      { errors: [e] }
     end
   end
 end
