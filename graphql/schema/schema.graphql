@@ -308,6 +308,7 @@ type Restaurant {
   addressLine2: String
   city: String
   country: String
+  hasStripeAccount: Boolean!
   id: ID!
   latitude: Float
   longitude: Float

@@ -10,6 +10,7 @@ class CreateRestaurantsAndUsers < ActiveRecord::Migration[7.0]
       t.string :country
       t.decimal :latitude
       t.decimal :longitude
+      t.string :stripe_account_id
 
       t.timestamps
     end

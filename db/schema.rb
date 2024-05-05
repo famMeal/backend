@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.string "country"
     t.decimal "latitude"
     t.decimal "longitude"
+    t.string "stripe_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
