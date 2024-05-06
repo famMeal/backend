@@ -122,6 +122,7 @@ User.create!(
   last_name: "Kamali",
   email: "shahynkamali@gmail.com",
   password: "password",
+  is_store_owner: true,
   restaurant: restaurant_keg,
   confirmed_at: DateTime.now
 )
