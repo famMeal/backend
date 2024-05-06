@@ -28,7 +28,7 @@ module Types
       object.orders
     end
 
-    def has_stripe_account
+    def has_stripe_account   
       object.stripe_account_id.present?
     end
 

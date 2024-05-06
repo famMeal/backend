@@ -8,7 +8,8 @@ module Mutations::Restaurant
       
       Stripe.api_key = ENV['STRIPE_SECRET_KEY']
       
-      stripe_account_id = context[:current_resource].restaurant.stripe_account_id
+      restaurant = context[:current_resource].restaurant
+      stripe_account_id = restaurant.stripe_account_id
       
       account = if stripe_account_id.present?
         Stripe::Account.retrieve(stripe_account_id)
@@ -16,9 +17,11 @@ module Mutations::Restaurant
         Stripe::Account.create({
           capabilities: { card_payments: { requested: true }, transfers: { requested: true } },
           type: "custom",
-          country: "CA",
+          country: "CA"
         })
       end
+
+      restaurant.update!(stripe_account_id: account.id) unless stripe_account_id.present?
 
       redirect_link = Stripe::AccountLink.create({
         account: account.id,
