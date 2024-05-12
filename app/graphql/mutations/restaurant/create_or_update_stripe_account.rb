@@ -1,6 +1,6 @@
 module Mutations::Restaurant
   class CreateOrUpdateStripeAccount < Mutations::BaseMutation 
-    field :errors, [String], null: false
+    field :error_message, String, null: true
     field :redirect_link, String, null: true
 
     def resolve
@@ -32,7 +32,7 @@ module Mutations::Restaurant
 
       { redirect_link: redirect_link.url, errors: [] }
     rescue StandardError => e
-      { errors: [e] }
+      { error_message: e.message }
     end
   end
 end

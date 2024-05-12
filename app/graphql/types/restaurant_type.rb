@@ -12,6 +12,7 @@ module Types
     field :country, String, null: true
     field :latitude, Float, null: true
     field :longitude, Float, null: true
+    field :stripe_account_id, String, null: true
 
     field :users, [Types::UserType], null: false
     field :meals, [Types::MealType], null: false

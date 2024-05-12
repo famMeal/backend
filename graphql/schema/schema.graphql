@@ -59,7 +59,7 @@ type CreateOrUpdateStripeAccountPayload {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  errors: [String!]!
+  errorMessage: String
   redirectLink: String
 }
 
@@ -346,6 +346,7 @@ type Restaurant {
   postalCode: String
   province: String
   restaurantSetting: RestaurantSetting
+  stripeAccountId: String
   users: [User!]!
 }
 
