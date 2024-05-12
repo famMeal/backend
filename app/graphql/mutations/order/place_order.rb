@@ -68,11 +68,10 @@ module Mutations::Order
         amount: (order.total * 100).to_i,
         currency: 'cad',
         customer: customer['id'],
-        automatic_payment_methods: { enabled: true },
-        application_fee_amount: ((order.total * 0.02) * 100).to_i,
+        automatic_payment_methods: { enabled: true }
       }, { stripe_account: order.restaurant.stripe_account_id })
 
-      @payment_info = { payment_intent: payment_intent["id"], ephemeral_key: ephemeral_key["id"], customer_id: customer['id'] }
+      @payment_info = { payment_intent: payment_intent['client_secret'], ephemeral_key: ephemeral_key["secret"], customer_id: customer['id'] }
     end
   end
 end
