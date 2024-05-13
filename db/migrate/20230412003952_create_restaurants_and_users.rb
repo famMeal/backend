@@ -56,6 +56,7 @@ class CreateRestaurantsAndUsers < ActiveRecord::Migration[7.0]
       t.inet     :last_sign_in_ip
       
       ## Tokens
+      t.string :customer_stripe_account_id
       t.json :tokens
       t.references :restaurant, index: true, foreign_key: true
 

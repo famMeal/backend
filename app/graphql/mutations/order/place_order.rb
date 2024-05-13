@@ -54,14 +54,23 @@ module Mutations::Order
     private
 
     def create_stripe_payment_intent!
-      customer = Stripe::Customer.create(
-        { email: order.user.email }, 
-        { stripe_account: order.restaurant.stripe_account_id }
-      )
+      customer_stripe_account_id = order.user.customer_stripe_account_id
+      restaurant_stripe_account_id = order.restaurant.stripe_account_id
+
+      customer = if customer_stripe_account_id.present?
+        Stripe::Customer.retrieve(customer_stripe_account_id, { stripe_account: restaurant_stripe_account_id })
+      else
+        Stripe::Customer.create(
+          { email: order.user.email }, 
+          { stripe_account: restaurant_stripe_account_id }
+        )
+      end
     
+      order.user.update!(customer_stripe_account_id: customer['id']) unless customer_stripe_account_id.present?
+
       ephemeral_key = Stripe::EphemeralKey.create(
         { customer: customer['id'] }, 
-        { stripe_account: order.restaurant.stripe_account_id, stripe_version: '2024-04-10' }
+        { stripe_account: restaurant_stripe_account_id, stripe_version: '2024-04-10' }
       )
 
       payment_intent = Stripe::PaymentIntent.create({
@@ -69,7 +78,7 @@ module Mutations::Order
         currency: 'cad',
         customer: customer['id'],
         automatic_payment_methods: { enabled: true }
-      }, { stripe_account: order.restaurant.stripe_account_id })
+      }, { stripe_account: restaurant_stripe_account_id })
 
       @payment_info = { payment_intent: payment_intent['client_secret'], ephemeral_key: ephemeral_key["secret"], customer_id: customer['id'] }
     end

@@ -92,6 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_12_014802) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.string "customer_stripe_account_id"
     t.json "tokens"
     t.bigint "restaurant_id"
     t.datetime "created_at", null: false
