@@ -13,8 +13,6 @@ module Mutations::Order
     field :customer_id, String, null: true
 
     def resolve(**args)
-      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-
       @args = args
       @order = Order.find(args[:order_id])
       setting = order.restaurant.restaurant_setting

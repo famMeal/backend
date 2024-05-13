@@ -6,8 +6,6 @@ module Mutations::Restaurant
     def resolve
       raise StandardError.new("You are not authorized to perform this action") unless context[:current_resource].is_store_owner 
       
-      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-      
       restaurant = context[:current_resource].restaurant
       stripe_account_id = restaurant.stripe_account_id
       
@@ -25,8 +23,8 @@ module Mutations::Restaurant
 
       redirect_link = Stripe::AccountLink.create({
         account: account.id,
-        refresh_url: 'batch://login',
-        return_url: 'batch://login',
+        refresh_url: 'https://batch-app.info/',
+        return_url: 'https://batch-app.info/',
         type: 'account_onboarding',
       })
 
