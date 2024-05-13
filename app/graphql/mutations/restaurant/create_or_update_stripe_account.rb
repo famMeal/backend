@@ -23,8 +23,8 @@ module Mutations::Restaurant
 
       redirect_link = Stripe::AccountLink.create({
         account: account.id,
-        refresh_url: 'https://batch-app.info/',
-        return_url: 'https://batch-app.info/',
+        refresh_url: 'https://fammeal.github.io/batch-redirect/refresh.html',
+        return_url: 'https://fammeal.github.io/batch-redirect/return.html',
         type: 'account_onboarding',
       })
 
