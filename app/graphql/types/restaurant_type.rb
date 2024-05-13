@@ -13,7 +13,7 @@ module Types
     field :latitude, Float, null: true
     field :longitude, Float, null: true
     field :stripe_account_id, String, null: true
-
+    field :stripe_onboarding_complete, Boolean, null: false
     field :users, [Types::UserType], null: false
     field :meals, [Types::MealType], null: false
     field :orders, [Types::OrderType], null: false do
@@ -31,6 +31,14 @@ module Types
 
     def has_stripe_account   
       object.stripe_account_id.present?
+    end
+
+    def stripe_onboarding_complete
+      stripe_account_id = object.stripe_account_id
+      return false unless stripe_account_id
+        
+        account = Stripe::Account.retrieve(stripe_account_id)
+        account.details_submitted && account.charges_enabled
     end
 
     def meals

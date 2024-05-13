@@ -350,6 +350,7 @@ type Restaurant {
   province: String
   restaurantSetting: RestaurantSetting
   stripeAccountId: String
+  stripeOnboardingComplete: Boolean!
   users: [User!]!
 }
 
