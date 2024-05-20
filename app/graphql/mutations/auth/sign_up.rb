@@ -7,6 +7,7 @@ module Mutations::Auth
     argument :last_name,             String, required: true
     argument :password_confirmation, String, required: true
     argument :restaurant_name,       String, required: false
+    argument :certificate_number,       String, required: false
 
     field :credentials,
           GraphqlDevise::Types::CredentialType,
@@ -18,13 +19,13 @@ module Mutations::Auth
       return raise_user_error_list("Passwords do not match", errors: []) if attrs[:password] != attrs[:password_confirmation]
       
       ActiveRecord::Base.transaction do
-        resource = build_resource(attrs.except(:restaurant_name).merge(provider: provider, confirmation_token: rand(100000...999999).to_s))
+        resource = build_resource(attrs.except(:restaurant_name, :certificate_number).merge(provider: provider, confirmation_token: rand(100000...999999).to_s))
   
         resource.save!
 
         yield resource if block_given?
 
-        Restaurant.create!(name: attrs[:restaurant_name]) if attrs[:restaurant_name].present?
+        Restaurant.create!(name: attrs[:restaurant_name], certificate_number: attrs[:certificate_number]) if attrs[:restaurant_name].present?
         
         unless resource.confirmed?
           resource.send_confirmation_instructions(

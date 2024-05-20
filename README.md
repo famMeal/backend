@@ -1,6 +1,6 @@
 # README
 
-BACKEND notes
+# BACKEND notes
 
 To start the backend with byebug enabled. Go to the backend folder.
 // Detached docker container
@@ -12,17 +12,20 @@ docker container ls
 // Attach it
 docker attach [container_id]
 
-To build the backend
+// To build the backend
 docker-compose build
 
-To run commands on the backend
+// To run commands on the backend
 docker-compose run web ...
+
+// Only if you want to reset the db
+docker-compose run web rails db:drop
+
 docker-compose run web rails db:create
 docker-compose run web rails db:migrate
 docker-compose run web rails db:seed
 
-
-FRONTEND notes
+# FRONTEND notes
 
 Start the frontend
 
