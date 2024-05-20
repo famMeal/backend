@@ -3,6 +3,8 @@ module Mutations::Auth
   class SignUp < GraphqlDevise::Mutations::Register
     argument :email,                 String, required: true
     argument :password,              String, required: true
+    argument :first_name,            String, required: true
+    argument :last_name,             String, required: true
     argument :password_confirmation, String, required: true
     argument :restaurant_name,       String, required: false
 
