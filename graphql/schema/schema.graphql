@@ -199,7 +199,7 @@ type Mutation {
     """
     input: PlaceOrderInput!
   ): PlaceOrderPayload
-  signUp(confirmUrl: String, email: String!, firstName: String!, lastName: String!, password: String!, passwordConfirmation: String!, restaurantName: String): SignUpPayload
+  signUp(addressLine1: String, addressLine2: String, certificateNumber: String, city: String, confirmUrl: String, email: String!, firstName: String!, lastName: String!, latitude: String, longitude: String, password: String!, passwordConfirmation: String!, postalCode: String, province: String, restaurantName: String): SignUpPayload
   updateAllOrdersStatus(
     """
     Parameters for UpdateAllOrdersStatus
