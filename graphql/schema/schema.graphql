@@ -322,6 +322,7 @@ type PlaceOrderPayload {
   errors: [String!]!
   order: Order
   paymentIntent: String
+  setupIntent: String
 }
 
 type Query {
