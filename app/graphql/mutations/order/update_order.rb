@@ -17,6 +17,8 @@ module Mutations::Order
       @order = Order.find(args[:order_id])
       @quantity = args[:quantity] || order.quantity
       
+      raise StandardError.new("Choose either tip percentage or amount, not both") if args[:tip_percentage] && args[:tip_amount]
+     
       ActiveRecord::Base.transaction do
         update_status(args[:status]) if args[:status]
         update_pickup_times
@@ -38,30 +40,26 @@ module Mutations::Order
       order.subtotal = subtotal
       order.quantity = quantity
       total_without_tip = subtotal * 1.13
-
-      if args[:tip_amount] || args[:tip_percentage] || args[:quantity]
+      
+      if args[:tip_percentage] && args[:tip_percentage] > 0 || (order.tip_percentage && args[:quantity])
         add_total_with_tip(total_without_tip)
       else
-        order.total = total_without_tip
+        order.assign_attributes(
+          total: total_without_tip,
+          tip_amount: 0,
+          tip_percentage: 0
+        ) 
       end
     end
 
     def add_total_with_tip(total_without_tip)
-      if args[:tip_amount]
-        order.assign_attributes(
-          total: total_without_tip + args[:tip_amount],
-          tip_amount: args[:tip_amount],
-          tip_percentage: nil
-        ) 
-      else 
-        tip_percentage = args[:tip_percentage] || order.tip_percentage
-        tip_amount = total_without_tip * (tip_percentage.to_d / 100.00)
-        order.assign_attributes(
-          total: total_without_tip + tip_amount,
-          tip_amount: tip_amount,
-          tip_percentage: tip_percentage
-        ) 
-      end
+      tip_percentage = args[:tip_percentage] || order.tip_percentage
+      tip_amount = total_without_tip * (tip_percentage.to_d / 100.00)
+      order.assign_attributes(
+        total: total_without_tip + tip_amount,
+        tip_amount: tip_amount,
+        tip_percentage: tip_percentage
+      ) 
     end
 
     def update_status(status)
