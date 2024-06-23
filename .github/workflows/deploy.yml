@@ -27,8 +27,11 @@ jobs:
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/yourimage:latest .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/yourimage:latest
 
+      - name: Verify backend directory
+        run: ls -la
+
       - name: List backend directory contents
-        run: ls -la ./backend
+        run: ls -la /root
 
       - name: Copy files to Droplet
         uses: appleboy/scp-action@master
