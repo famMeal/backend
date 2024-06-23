@@ -27,9 +27,6 @@ jobs:
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/yourimage:latest .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/yourimage:latest
 
-      - name: Debug SSH Key Length
-        run: echo "${{ secrets.DROPLET_SSH_KEY }}" | head -c 20
-
       - name: Copy files to Droplet
         uses: appleboy/scp-action@master
         with:
@@ -42,7 +39,7 @@ jobs:
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.DROPLET_IP }}
+          host: "159.203.6.194"
           username: ${{ secrets.DROPLET_USERNAME }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
