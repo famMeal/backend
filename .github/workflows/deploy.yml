@@ -27,8 +27,8 @@ jobs:
           docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/yourimage:latest .
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/yourimage:latest
 
-      - name: Verify directory
-        run: ls -la
+       - name: Debug SSH Key Length
+         run: echo "${{ secrets.DROPLET_SSH_KEY }}" | wc -c
 
       - name: Copy files to Droplet
         uses: appleboy/scp-action@master
