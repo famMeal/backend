@@ -145,6 +145,7 @@ type Meal {
   active: Boolean!
   archived: Boolean!
   description: String
+  didItWork: String!
   id: ID!
   name: String!
   orderCutoffTime: String!

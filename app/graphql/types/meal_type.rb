@@ -13,8 +13,13 @@ module Types
     field :pickup_start_time, String, null: false
     field :pickup_end_time, String, null: false
     field :quantity_available, Integer, null: false
+    field :did_it_work, String, null: false
     
     field :restaurant, Types::RestaurantType, null: true
+
+    def did_it_work
+      "YES"
+    end
 
     def order_start_time
       object.restaurant_setting.order_start_time
