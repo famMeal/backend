@@ -19,31 +19,30 @@ module Mutations::Order
       setting = order.restaurant.restaurant_setting
 
       raise StandardError.new("Choose either tip percentage or amount, not both") if args[:tip_percentage] && args[:tip_amount]
-      raise StandardError.new("Sorry we don't have enough #{order.meal.name} available! #{setting.quantity_available} meals left") if setting.quantity_available < order.quantity 
+      raise StandardError.new("Sorry we don't have enough #{order.meal.name} available! #{setting.quantity_available} meals left") if setting.quantity_available < order.quantity
 
       ActiveRecord::Base.transaction do
         setting.with_lock do
           setting.update_columns(quantity_available: setting.quantity_available - order.quantity)
-          
+
           order.update_columns(
             pickup_start_time: args[:pickup_start_time] || order.pickup_start_time,
             pickup_end_time: args[:pickup_end_time] || order.pickup_end_time,
             quantity: order.quantity,
-            order_placed_at: DateTime.now,
-            status: "preparing"
+            order_placed_at: DateTime.now
           )
-          
+
           create_stripe_payment_intent!
         end
       end
 
-      { 
-        order: order, 
-        ephemeral_key: @payment_info[:ephemeral_key], 
-        payment_intent: @payment_info[:payment_intent], 
-        customer_id: @payment_info[:customer_id], 
+      {
+        order: order,
+        ephemeral_key: @payment_info[:ephemeral_key],
+        payment_intent: @payment_info[:payment_intent],
+        customer_id: @payment_info[:customer_id],
         setup_intent: @payment_info[:setup_intent],
-        errors: [] 
+        errors: []
       }
     rescue StandardError => e
       { errors: [e.message] }
